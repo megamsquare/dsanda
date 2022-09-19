@@ -36,7 +36,7 @@ func (b *Book) GetBooks() (*[]Book, error) {
 	return &books, err
 }
 
-func (b *Book) GetBook(id string) (*Book, error) {
+func (b *Book) GetBook(id int64) (*Book, error) {
 	var book Book
 	err := db.Where("id = ?", id).Find(&book).Error
 	if err != nil {
@@ -58,7 +58,7 @@ func (b *Book) UpdateBook(id string) (*Book, error) {
 	return b, nil
 }
 
-func (b *Book) DeleteBook(id string) (int64, error) {
+func (b *Book) DeleteBook(id int64) (int64, error) {
 	var book Book
 	err := db.Where("id = ?", id).Delete(&book).Error
 	if err != nil {
