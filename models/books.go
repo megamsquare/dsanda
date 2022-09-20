@@ -45,17 +45,25 @@ func (b *Book) GetBook(id int64) (*Book, error) {
 	return &book, nil
 }
 
-func (b *Book) UpdateBook(id string) (*Book, error) {
-	var book Book
-	err := db.Where("id = ?", id).Find(&book).Error
+func (b *Book) UpdateBook(id int64) (*Book, error) {
+	bookDetails, err := b.GetBook(id)
 	if err != nil {
 		return &Book{}, err
 	}
-	err = db.Save(&b).Error
+	if b.Title != "" {
+		bookDetails.Title = b.Title
+	}
+	if b.Author != "" {
+		bookDetails.Author = b.Author
+	}
+	if b.Publication != "" {
+		bookDetails.Publication = b.Publication
+	}
+	err = db.Save(&bookDetails).Error
 	if err != nil {
 		return &Book{}, err
 	}
-	return b, nil
+	return bookDetails, nil
 }
 
 func (b *Book) DeleteBook(id int64) (int64, error) {
