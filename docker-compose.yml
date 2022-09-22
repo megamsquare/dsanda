@@ -2,7 +2,8 @@ version: '3.7'
 
 services:
   db:
-    image: postgres:12
+    image: postgres:alpine
+    container_name: dsandapostrgres
     restart: always
     environment:
       POSTGRES_PASSWORD: password
