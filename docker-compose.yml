@@ -22,7 +22,7 @@ services:
     networks:
       - backend
     ports:
-      - 8080:8080
+      - 9010:9010
 
 networks:
   backend:
