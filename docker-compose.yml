@@ -11,8 +11,6 @@ services:
       - 5432:5432
     volumes:
       - dsanda_postgres:/var/lib/postgresql/data
-    networks:
-      - backend
   server:
     build:
       context: .
@@ -24,9 +22,9 @@ services:
     ports:
       - 9010:9010
 
+volumes:
+  dsanda_postgres:
+
 networks:
   backend:
     driver: bridge
-
-volumes:
-  dsanda_postgres:
