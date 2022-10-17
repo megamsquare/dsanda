@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:alpine
+    container_name: "dsandal_db"
+    restart: always
+    environment:
+      - POSTGRES_USER=dsanda
+      - POSTGRES_PASSWORD=postgrespass
+      - POSTGRES_DB=postgresdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    networks:
+      - backend
+  web:
+    build: .
+    container_name: "dsandal_api"
+    
