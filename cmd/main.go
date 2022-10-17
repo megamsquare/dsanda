@@ -13,4 +13,5 @@ func main() {
 	routes.RegisterBookRoutes(router)
 	http.Handle("/", router)
 	log.Fatal(http.ListenAndServe(":9010", router))
+	log.Println("Server started on port 9010")
 }
