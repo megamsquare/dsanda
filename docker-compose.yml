@@ -15,7 +15,26 @@ services:
       - ./db:/var/lib/postgresql/data
     networks:
       - backend
+
   web:
     build: .
     container_name: "dsandal_api"
-    
+    environment:
+      DB_USERNAME: dsanda
+      DB_PASSWORD: postgrespass
+      DB_DB: postgresdb
+      DB_HOST: db
+      DB_PORT: "5432"
+    ports: 
+      - "9010:9010"
+    depends_on:
+      - db
+    networks:
+      - backend
+
+volumes:
+  db:
+
+networks:
+  backend:
+    driver: bridge
