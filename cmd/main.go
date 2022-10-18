@@ -1,11 +1,12 @@
 package main
 
 import (
-	"github.com/gorilla/mux"
-	"github.com/megamsquare/dsanda/routes"
 	"log"
 	"net/http"
-	_"gorm.io/driver/postgres"
+
+	"github.com/gorilla/mux"
+	"github.com/megamsquare/dsanda/routes"
+	_ "gorm.io/driver/postgres"
 )
 
 func main() {
@@ -13,5 +14,4 @@ func main() {
 	routes.RegisterBookRoutes(router)
 	http.Handle("/", router)
 	log.Fatal(http.ListenAndServe(":9010", router))
-	log.Println("Server started on port 9010")
 }
