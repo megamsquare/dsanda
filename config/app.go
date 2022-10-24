@@ -16,6 +16,10 @@ func ConnectDB() {
 		panic("Failed to connect to database! \n Error: " + err.Error())
 	}
 	DB = db
+
+	// Migrate the schema
+	// golang migrate working with gorm
+	
 }
 
 func GetDB() *gorm.DB {

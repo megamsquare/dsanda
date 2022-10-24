@@ -1,29 +1,30 @@
 package db
 
 import (
-	"database/sql"
+	// "database/sql"
+	"embed"
+
 	"github.com/golang-migrate/migrate/v4"
-	"github.com/golang-migrate/migrate/v4/database/postgres"
-	_ "github.com/golang-migrate/migrate/v4/source/file"
+	"github.com/golang-migrate/migrate/v4/source/iofs"
+	// _ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
-func Migrate() {
-	db, err := sql.Open("postgres", "postgres://dsanda:postgrespass@db:5432/postgresdb")
+var fs embed.FS
+
+func Migrate(Url string) error {
+	d, err := iofs.New(fs, "migrations")
 	if err != nil {
-		panic(err)
+		return err
 	}
-	driver, err := postgres.WithInstance(db, &postgres.Config{})
+
+	m, err := migrate.NewWithSourceInstance("iofs", d, Url)
 	if err != nil {
-		panic(err)
+		return err
 	}
-	m, err := migrate.NewWithDatabaseInstance(
-		"file://migrations",
-		"postgres",
-		driver)
-	if err != nil {
-		panic(err)
-	}
+
 	if err := m.Up(); err != nil && err != migrate.ErrNoChange {
-		panic(err)
+		return err
 	}
+
+	return nil
 }
