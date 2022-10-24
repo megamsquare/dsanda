@@ -21,6 +21,7 @@ func ConnectDB() {
 	
 	// Migrate the schema
 	// golang migrate working with gorm
+	db.Migrate(dsn)
 
 }
 
